@@ -36,7 +36,6 @@ app.get('/api/embeddedControllers', async (req, res) => {
         res.json(embeddedControllers);
     } catch(e) {
         // tslint:disable-next-line:no-console
-<<<<<<< HEAD
         console.log(e);
     }
 });
@@ -65,8 +64,6 @@ app.get('/api/tempMeasurements', async (req, res) => {
         res.json(tempMeasurements);
     } catch(e) {
         // tslint:disable-next-line:no-console
-=======
->>>>>>> main
         console.log(e);
     }
 });
