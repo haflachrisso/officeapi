@@ -25,6 +25,7 @@ app.post('/api/embeddedController/create', async (req, res) => {
         
         res.json(result);
     } catch (e) {
+        // tslint:disable-next-line:no-console
         console.log(e);
     }
 });
@@ -34,6 +35,7 @@ app.get('/api/embeddedControllers', async (req, res) => {
         const embeddedControllers = await prisma.embeddedController.findMany();
         res.json(embeddedControllers);
     } catch(e) {
+        // tslint:disable-next-line:no-console
         console.log(e);
     }
 });
