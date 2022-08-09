@@ -61,6 +61,12 @@ app.post('/api/tempMeasurement/create', async (req, res) => {
 app.get('/api/tempMeasurements', async (req, res) => {
     try {
         const tempMeasurements = await prisma.tempMeasurements.findMany();
+        // const allUsers = await prisma.user.findMany({
+        //     include: {
+        //       posts: true,
+        //       profile: true,
+        //     },
+        //   })
         res.json(tempMeasurements);
     } catch(e) {
         // tslint:disable-next-line:no-console
