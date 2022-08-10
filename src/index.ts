@@ -57,7 +57,7 @@ app.post('/api/tempMeasurement/create', async (req, res) => {
         console.log(e);
     }
 });
-
+//hey
 app.post('/api/tempMeasurement/:temp/:id', async (req, res) => {
     const {temp, id} = req.params;
 
