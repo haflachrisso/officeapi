@@ -18,11 +18,11 @@ app.post('/api/embeddedController/create', async (req, res) => {
 
         const result = await prisma.embeddedController.create({
             data: {
-                name: name,
-                location: location,
+                name,
+                location,
             }
         })
-        
+
         res.json(result);
     } catch (e) {
         // tslint:disable-next-line:no-console
@@ -50,7 +50,27 @@ app.post('/api/tempMeasurement/create', async (req, res) => {
                 controllerId,
             }
         })
-        
+
+        res.json(result);
+    } catch (e) {
+        // tslint:disable-next-line:no-console
+        console.log(e);
+    }
+});
+
+app.post('/api/tempMeasurement/:temp/:id', async (req, res) => {
+    const {temp, id} = req.params;
+
+    const tempCelcius = parseFloat(temp);
+    const controllerId = parseInt(id);
+    try {
+        const result = await prisma.tempMeasurements.create({
+            data: {
+                tempCelcius,
+                controllerId,
+            }
+        })
+
         res.json(result);
     } catch (e) {
         // tslint:disable-next-line:no-console
