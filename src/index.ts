@@ -41,6 +41,8 @@ app.get('/api/embeddedControllers', async (req, res) => {
 });
 
 app.post('/api/tempMeasurement/create', async (req, res) => {
+    // tslint:disable-next-line:no-console
+    console.log(req.body);
     const {tempCelcius, controllerId} = req.body;
     try {
 
