@@ -16,12 +16,21 @@ model EmbeddedController {
   name      String
   location  String
   tempMeasurements TempMeasurements[]
+  humMeasurements HumMeasurements[]
 }
 
 model TempMeasurements {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   tempCelcius Float
+  controller EmbeddedController? @relation(fields: [controllerId], references: [id])
+  controllerId  Int?
+}
+
+model HumMeasurements {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  humPercent  Float
   controller EmbeddedController? @relation(fields: [controllerId], references: [id])
   controllerId  Int?
 }
