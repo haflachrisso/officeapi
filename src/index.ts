@@ -41,7 +41,7 @@ app.get('/api/embeddedControllers', async (req, res) => {
     }
 });
 
-app.post('/api/tempMeasurement/create', async (req, res) => {
+app.post('/api/tempMeasurement', async (req, res) => {
     // tslint:disable-next-line:no-console
     console.log(req.body);
     const {tempCelcius, controllerId} = req.body;
@@ -60,44 +60,18 @@ app.post('/api/tempMeasurement/create', async (req, res) => {
         console.log(e);
     }
 });
-// hey
-app.post('/api/tempMeasurement/:temp/:id', async (req, res) => {
-    const {temp, id} = req.params;
-
-    const tempCelcius = Number(temp);
-    const controllerId = Number(id);
-    try {
-        const result = await prisma.tempMeasurements.create({
-            data: {
-                tempCelcius,
-                controllerId,
-            }
-        })
-
-        res.json(result);
-    } catch (e) {
-        // tslint:disable-next-line:no-console
-        console.log(e);
-    }
-});
 
 app.get('/api/tempMeasurements/:number?', async (req, res) => {
 
-    const number = req.params.number;
+    const numberParam = req.params.number;
 
-    const numberOfMeasurements = number.length > 0 ? Number(number) : undefined;
+    const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
 
 
     try {
         const tempMeasurements = await prisma.tempMeasurements.findMany({
             take: -numberOfMeasurements
         });
-        // const allUsers = await prisma.user.findMany({
-        //     include: {
-        //       posts: true,
-        //       profile: true,
-        //     },
-        //   })
         res.json(tempMeasurements);
     } catch(e) {
         // tslint:disable-next-line:no-console
@@ -105,11 +79,9 @@ app.get('/api/tempMeasurements/:number?', async (req, res) => {
     }
 });
 
-app.post('/api/humMeasurement/:hum/:id', async (req, res) => {
-    const {hum, id} = req.params;
+app.post('/api/humMeasurement', async (req, res) => {
+    const {humPercent, controllerId} = req.body;
 
-    const humPercent = Number(hum);
-    const controllerId = Number(id);
     try {
         const result = await prisma.humMeasurements.create({
             data: {
@@ -124,16 +96,16 @@ app.post('/api/humMeasurement/:hum/:id', async (req, res) => {
     }
 });
 
-app.get('/api/humMeasurements', async (req, res) => {
+app.get('/api/humMeasurements/:number?', async (req, res) => {
+    const numberParam = req.params.number;
+
+    const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
+
     try {
-        const tempMeasurements = await prisma.tempMeasurements.findMany();
-        // const allUsers = await prisma.user.findMany({
-        //     include: {
-        //       posts: true,
-        //       profile: true,
-        //     },
-        //   })
-        res.json(tempMeasurements);
+        const humMeasurements = await prisma.tempMeasurements.findMany({
+            take: -numberOfMeasurements
+        });
+        res.json(humMeasurements);
     } catch(e) {
         // tslint:disable-next-line:no-console
         console.log(e);
