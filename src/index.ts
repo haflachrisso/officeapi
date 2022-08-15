@@ -43,7 +43,7 @@ app.get('/api/embeddedControllers', async (req, res) => {
 
 app.get('/api/embeddedController/:id', async (req, res) => {
 
-    const {id} = req.params;
+    const id = req.params.id;
 
     try {
         const embeddedController = await prisma.embeddedController.findUnique({
@@ -88,7 +88,7 @@ app.post('/api/tempMeasurement', async (req, res) => {
 
 app.get('/api/tempMeasurements/:number?', async (req, res) => {
 
-    const numberParamParam = req.params.number;
+    const numberParam = req.params.number;
 
     const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
 
@@ -121,10 +121,7 @@ app.post('/api/humMeasurement', async (req, res) => {
     }
 });
 
-app.get('/api/humMeasurements/:number?/:number?', async (req, res) => {
-    const numberParam = req.params.number;
-
-    const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
+app.get('/api/humMeasurements/:number?', async (req, res) => {
 
     const numberParam = req.params.number;
 
