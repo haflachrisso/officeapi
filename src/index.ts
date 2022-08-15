@@ -41,6 +41,31 @@ app.get('/api/embeddedControllers', async (req, res) => {
     }
 });
 
+app.get('/api/embeddedController/:id', async (req, res) => {
+
+    const id = req.params.id;
+
+    try {
+        const embeddedController = await prisma.embeddedController.findUnique({
+            where: {
+              id: Number(id),
+            },
+            include: {
+                humMeasurements: {
+                    take: -50,
+                },
+                tempMeasurements: {
+                    take: -50,
+                }
+            }
+        });
+        res.json(embeddedController);
+    } catch(e) {
+        // tslint:disable-next-line:no-console
+        console.log(e);
+    }
+});
+
 app.post('/api/tempMeasurement', async (req, res) => {
     // tslint:disable-next-line:no-console
     console.log(req.body);
@@ -97,12 +122,13 @@ app.post('/api/humMeasurement', async (req, res) => {
 });
 
 app.get('/api/humMeasurements/:number?', async (req, res) => {
+
     const numberParam = req.params.number;
 
     const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
 
     try {
-        const humMeasurements = await prisma.tempMeasurements.findMany({
+        const humMeasurements = await prisma.humMeasurements.findMany({
             take: -numberOfMeasurements
         });
         res.json(humMeasurements);
