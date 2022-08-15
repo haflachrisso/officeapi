@@ -88,7 +88,7 @@ app.post('/api/tempMeasurement', async (req, res) => {
 
 app.get('/api/tempMeasurements/:number?', async (req, res) => {
 
-    const numberParam = req.params.number;
+    const numberParamParam = req.params.number;
 
     const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
 
@@ -121,7 +121,11 @@ app.post('/api/humMeasurement', async (req, res) => {
     }
 });
 
-app.get('/api/humMeasurements/:number?', async (req, res) => {
+app.get('/api/humMeasurements/:number?/:number?', async (req, res) => {
+    const numberParam = req.params.number;
+
+    const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
+
     const numberParam = req.params.number;
 
     const numberOfMeasurements = typeof numberParam !== 'undefined' ? Number(numberParam) : undefined;
